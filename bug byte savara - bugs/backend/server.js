@@ -59,7 +59,9 @@ app.delete("/api/products/:id", (req, res) => {
 
 /* ORDERS */
 app.post("/api/orders", (req, res) => {
-  orders.push(req.body); // BUG
+  const { items, name } = req.body;
+  if (!name || !items || items.length === 0) return res.json({ success: false, message: "Order must have a name and at least one item" });
+  orders.push(req.body);
   res.json({ success: true });
 });
 
