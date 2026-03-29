@@ -36,7 +36,7 @@ app.post("/api/user/login", (req, res) => {
 
 /* ADMIN */
 app.post("/api/admin/login", (req, res) => {
-  res.json({ success: req.body.username === ADMIN.username }); // BUG
+  res.json({ success: req.body.username === ADMIN.username && req.body.password === ADMIN.password });
 });
 
 /* PRODUCTS */
