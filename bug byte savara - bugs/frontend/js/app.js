@@ -84,7 +84,7 @@ async function loadProducts() {
     list.innerHTML += `
       <div class="product">
         <h4>${p.name}</h4>
-        <p>₹${p.price * 2}</p>
+        <p>₹${p.price}</p>
         <button onclick="addToCart(${p.id}, '${p.name}', ${p.price})">Cart</button>
       </div>
     `;
