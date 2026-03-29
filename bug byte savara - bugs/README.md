@@ -46,3 +46,21 @@
 - **Orders page had no auth check** — anyone who knew the URL could open it, now verifies admin token on load
 - **Full card number was being sent to the server** — card details should never be stored, now only the last 4 digits are kept
 - **User data was injected into innerHTML** — product names and order data could contain malicious HTML, now sanitized before rendering
+
+## Additional Fixes
+
+- **Orders page had no auth check at all** — anyone could open it directly, added checkAdmin() and sent the token with the fetch request
+- **Delete product had no ID validation** — passing a non-numeric ID would silently do nothing, added an isNaN guard
+- **Post order accepted anything** — no check on name or items, now validates both before saving
+- **deleteProduct function was missing** — admins couldn't delete products from the UI, added the function with the auth token
+- **Checkout always showed ₹0** — total was hardcoded, now calculates the real sum from cartItems
+- **Cart had no way forward** — there was no link or button to go to checkout, added a "Proceed to Checkout" button
+
+## UI Improvements
+
+- Admin pages now have a shared nav bar to switch between Dashboard, Products, and Orders
+- Products page has an inline form to add new products without going to a separate page
+- Cart shows each item as a row with the name and price clearly listed
+- Checkout displays a live total calculated from the cart
+- Dashboard shows the product count as a stat card instead of just dumping a number
+- Product cards show "Add to Cart" for users and a "Delete" button for admins
