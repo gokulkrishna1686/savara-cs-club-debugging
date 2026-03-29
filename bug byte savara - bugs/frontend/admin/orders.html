@@ -17,7 +17,7 @@
     <h2>Orders</h2>
   </div>
 
-  <div id="orders"></div>
+  <div id="orders" class="orders-grid"></div>
 </div>
 
 <script src="../js/app.js"></script>
@@ -31,18 +31,33 @@ fetch("http://localhost:5000/api/orders", {
 .then(d => {
   const container = document.getElementById("orders");
   if (d.length === 0) {
+    container.style.display = "block";
     container.textContent = "No orders yet.";
     return;
   }
-  d.forEach(o => {
+  d.forEach((o, i) => {
     const div = document.createElement("div");
     div.className = "order-item";
-    const name = document.createElement("span");
-    name.textContent = o.name;
-    const card = document.createElement("span");
+
+    const name = document.createElement("div");
+    name.className = "order-name";
+    name.textContent = o.name || "Unknown";
+
+    const card = document.createElement("div");
+    card.className = "order-card";
     card.textContent = "**** **** **** " + String(o.card).slice(-4);
+
+    const itemsList = document.createElement("div");
+    itemsList.className = "order-items-list";
+    (o.items || []).forEach(item => {
+      const tag = document.createElement("span");
+      tag.textContent = item.name + " ₹" + item.price;
+      itemsList.appendChild(tag);
+    });
+
     div.appendChild(name);
     div.appendChild(card);
+    if (o.items && o.items.length > 0) div.appendChild(itemsList);
     container.appendChild(div);
   });
 });

@@ -200,14 +200,54 @@ input:focus {
 .cart-item span { color: #0f172a; font-weight: 500; }
 .cart-item .price { color: #3b82f6; font-weight: 600; }
 
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
 .order-item {
   background: white;
-  border-radius: 10px;
-  padding: 14px 20px;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  border-left: 4px solid #3b82f6;
+}
+
+.order-item .order-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.order-item .order-card {
+  font-size: 0.85rem;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 4px 10px;
+  border-radius: 6px;
+  display: inline-block;
   margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  letter-spacing: 1px;
+}
+
+.order-item .order-items-list {
+  font-size: 0.85rem;
+  color: #475569;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 8px;
+  margin-top: 4px;
+}
+
+.order-item .order-items-list span {
+  display: inline-block;
+  background: #eff6ff;
+  color: #3b82f6;
+  border-radius: 5px;
+  padding: 2px 8px;
+  margin: 3px 3px 0 0;
+  font-size: 0.8rem;
 }
 
 .checkout-box {
