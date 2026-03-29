@@ -87,13 +87,14 @@ async function loadProducts() {
   list.innerHTML = "";
 
   data.forEach(p => {
-    list.innerHTML += `
-      <div class="product">
-        <h4>${p.name}</h4>
-        <p>₹${p.price}</p>
-        <button onclick="addToCart(${p.id}, '${p.name}', ${p.price})">Cart</button>
-      </div>
+    const div = document.createElement("div");
+    div.className = "product";
+    div.innerHTML = `
+      <h4>${sanitize(p.name)}</h4>
+      <p>₹${sanitize(String(p.price))}</p>
+      <button onclick="addToCart(${p.id}, '${sanitize(p.name)}', ${p.price})">Cart</button>
     `;
+    list.appendChild(div);
   });
 }
 

@@ -18,8 +18,11 @@ const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
 
 if (cart.length > 0) {
   document.getElementById("emptyMsg").style.display = "none";
+  const container = document.getElementById("cartItems");
   cart.forEach(i => {
-    document.body.innerHTML += i.name + " ₹" + i.price;
+    const p = document.createElement("p");
+    p.textContent = i.name + " ₹" + i.price;
+    container.appendChild(p);
   });
 }
 </script>

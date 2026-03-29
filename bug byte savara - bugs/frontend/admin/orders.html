@@ -8,8 +8,11 @@
 fetch("http://localhost:5000/api/orders")
 .then(r => r.json())
 .then(d => {
+  const container = document.getElementById("orders");
   d.forEach(o => {
-    document.body.innerHTML += o.name + " " + ("**** **** **** " + String(o.card).slice(-4));
+    const p = document.createElement("p");
+    p.textContent = o.name + " " + ("**** **** **** " + String(o.card).slice(-4));
+    container.appendChild(p);
   });
 });
 </script>
