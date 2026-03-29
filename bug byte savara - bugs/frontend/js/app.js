@@ -95,7 +95,7 @@ async function loadProducts() {
 function addToCart(id, name, price) {
   let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
   cart.push({ id, name, price });
-  localStorage.setItem("cart", JSON.stringify(cart)); // BUG
+  localStorage.setItem("cartItems", JSON.stringify(cart));
 }
 
 /* ORDER */
