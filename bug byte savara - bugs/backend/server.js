@@ -52,7 +52,8 @@ app.post("/api/products", (req, res) => {
 
 app.delete("/api/products/:id", (req, res) => {
   const id = parseInt(req.params.id);
-  products = products.filter(p => p.id !== id); // BUG
+  if (isNaN(id)) return res.json({ success: false, message: "product ID invalid!!" });
+  products = products.filter(p => p.id !== id);
   res.json({ success: true });
 });
 
