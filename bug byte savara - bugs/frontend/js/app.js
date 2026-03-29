@@ -84,18 +84,38 @@ async function loadProducts() {
   const data = await res.json();
 
   const list = document.getElementById("list");
+  const emptyMsg = document.getElementById("emptyMsg");
   list.innerHTML = "";
+
+  if (data.length === 0) {
+    if (emptyMsg) emptyMsg.style.display = "block";
+    return;
+  }
+  if (emptyMsg) emptyMsg.style.display = "none";
+
+  const isAdmin = !!localStorage.getItem("adminToken");
 
   data.forEach(p => {
     const div = document.createElement("div");
     div.className = "product";
+    const btn = isAdmin
+      ? `<button onclick="deleteProduct(${p.id})">Delete</button>`
+      : `<button onclick="addToCart(${p.id}, '${sanitize(p.name)}', ${p.price})">Add to Cart</button>`;
     div.innerHTML = `
       <h4>${sanitize(p.name)}</h4>
       <p>₹${sanitize(String(p.price))}</p>
-      <button onclick="addToCart(${p.id}, '${sanitize(p.name)}', ${p.price})">Cart</button>
+      ${btn}
     `;
     list.appendChild(div);
   });
+}
+
+async function deleteProduct(id) {
+  await fetch(API + "/api/products/" + id, {
+    method: "DELETE",
+    headers: { "x-admin-token": localStorage.getItem("adminToken") }
+  });
+  loadProducts();
 }
 
 /* CART */

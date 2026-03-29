@@ -7,16 +7,25 @@
 <body>
 
 <div class="content">
-<h2>Checkout</h2>
+  <div class="checkout-box">
+    <h2>Checkout</h2>
 
-<input id="name" placeholder="Enter name">
-<input id="card" placeholder="Enter card number">
+    <input id="name" placeholder="Enter your name">
+    <input id="card" placeholder="Enter card number">
 
-<button onclick="placeOrder()">Pay</button>
+    <div class="checkout-total" id="total">Total: ₹0</div>
 
-<p>Total: ₹0</p>
+    <button onclick="placeOrder()" style="width:100%; margin-top:16px">Pay Now</button>
+
+    <a href="cart.html" class="page-link">← Back to Cart</a>
+  </div>
 </div>
 
 <script src="../js/app.js"></script>
+<script>
+const items = JSON.parse(localStorage.getItem("cartItems")) || [];
+const total = items.reduce((sum, i) => sum + i.price, 0);
+document.getElementById("total").textContent = "Total: ₹" + total;
+</script>
 </body>
 </html>

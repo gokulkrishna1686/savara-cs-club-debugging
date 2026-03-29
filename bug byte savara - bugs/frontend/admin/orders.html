@@ -6,17 +6,44 @@
 </head>
 <body>
 
-<div id="orders"></div>
+<nav class="admin-nav">
+  <a href="dashboard.html">Dashboard</a>
+  <a href="products.html">Products</a>
+  <a href="orders.html" class="active">Orders</a>
+</nav>
 
+<div class="content">
+  <div class="page-header">
+    <h2>Orders</h2>
+  </div>
+
+  <div id="orders"></div>
+</div>
+
+<script src="../js/app.js"></script>
 <script>
-fetch("http://localhost:5000/api/orders")
+checkAdmin();
+
+fetch("http://localhost:5000/api/orders", {
+  headers: { "x-admin-token": localStorage.getItem("adminToken") }
+})
 .then(r => r.json())
 .then(d => {
   const container = document.getElementById("orders");
+  if (d.length === 0) {
+    container.textContent = "No orders yet.";
+    return;
+  }
   d.forEach(o => {
-    const p = document.createElement("p");
-    p.textContent = o.name + " " + ("**** **** **** " + String(o.card).slice(-4));
-    container.appendChild(p);
+    const div = document.createElement("div");
+    div.className = "order-item";
+    const name = document.createElement("span");
+    name.textContent = o.name;
+    const card = document.createElement("span");
+    card.textContent = "**** **** **** " + String(o.card).slice(-4);
+    div.appendChild(name);
+    div.appendChild(card);
+    container.appendChild(div);
   });
 });
 </script>
