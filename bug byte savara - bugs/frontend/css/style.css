@@ -12,9 +12,22 @@ body {
 .navbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 18px 40px;
   background: #020617;
   color: white;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.navbar a:hover {
+  background: rgba(255,255,255,0.1);
 }
 
 .content {
@@ -34,26 +47,38 @@ body {
   padding: 18px;
   background: white;
   border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: box-shadow 0.2s;
+}
 
+.product:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.14);
 }
 
 button {
-  padding: 8px;
+  padding: 8px 16px;
   background: #3b82f6;
   color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
 }
 
 button:hover {
   background: white;
   color: #3b82f6;
+  border: 1px solid #3b82f6;
 }
 
 .center-box {
   width: 350px;
   margin: 120px auto;
-  padding: 25px;
+  padding: 30px;
   background: white;
   text-align: center;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
 .center-box h2 {
@@ -64,6 +89,14 @@ input {
   width: 100%;
   padding: 10px;
   margin: 8px 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input:focus {
+  border-color: #3b82f6;
 }
 
 .main {
