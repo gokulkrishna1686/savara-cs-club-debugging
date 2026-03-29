@@ -50,10 +50,16 @@ app.get("/api/admin/verify", (req, res) => {
   res.json({ success: adminToken !== null && req.headers["x-admin-token"] === adminToken });
 });
 
+function requireAdmin(req, res, next) {
+  if (adminToken === null || req.headers["x-admin-token"] !== adminToken)
+    return res.status(401).json({ success: false, message: "Unauthorized" });
+  next();
+}
+
 /* PRODUCTS */
 app.get("/api/products", (req, res) => res.json(products));
 
-app.post("/api/products", (req, res) => {
+app.post("/api/products", requireAdmin, (req, res) => {
   const { name, price } = req.body;
   if (!name || typeof name !== "string" || !name.trim()) return res.json({ success: false, message: "Product name is required" });
   if (price === undefined || typeof price !== "number" || price < 0) return res.json({ success: false, message: "Price must be a valid non-negative number" });
@@ -61,7 +67,7 @@ app.post("/api/products", (req, res) => {
   res.json({ success: true });
 });
 
-app.delete("/api/products/:id", (req, res) => {
+app.delete("/api/products/:id", requireAdmin, (req, res) => {
   const id = parseInt(req.params.id);
   if (isNaN(id)) return res.json({ success: false, message: "product ID invalid!!" });
   products = products.filter(p => p.id !== id);
@@ -76,6 +82,6 @@ app.post("/api/orders", (req, res) => {
   res.json({ success: true });
 });
 
-app.get("/api/orders", (req, res) => res.json(orders));
+app.get("/api/orders", requireAdmin, (req, res) => res.json(orders));
 
 app.listen(5000, () => console.log("Server running on 5000"));
