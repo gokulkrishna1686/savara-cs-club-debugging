@@ -101,7 +101,7 @@ function addToCart(id, name, price) {
 /* ORDER */
 async function placeOrder() {
   const item = JSON.parse(localStorage.getItem("buyNowItem"));
-  const items = item ? [item] : []; // BUG
+  const items = item ? [item] : (JSON.parse(localStorage.getItem("cartItems")) || []);
 
   await fetch(API + "/api/orders", {
     method: "POST",
