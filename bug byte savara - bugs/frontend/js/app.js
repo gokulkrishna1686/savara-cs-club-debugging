@@ -22,7 +22,12 @@ async function userLogin() {
 
 /* REGISTER */
 async function register() {
-  await fetch(API + "/api/user/register", {
+  if (!username.value || !password.value) {
+    alert("Username and password are required");
+    return;
+  }
+
+  const res = await fetch(API + "/api/user/register", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
@@ -31,7 +36,13 @@ async function register() {
     })
   });
 
-  window.location.href = "login.html";
+  const data = await res.json();
+
+  if (data.success) {
+    window.location.href = "login.html";
+  } else {
+    alert(data.message || "Registration failed");
+  }
 }
 
 /* PRODUCTS */

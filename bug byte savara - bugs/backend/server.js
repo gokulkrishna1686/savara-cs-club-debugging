@@ -19,8 +19,9 @@ let orders = [];
 /* REGISTER */
 app.post("/api/user/register", (req, res) => {
   const { username, password } = req.body;
-  if (!username) return res.json({ success: false });
-  USERS.push({ username, password }); // BUG
+  if (!username || !password) return res.json({ success: false, message: "Username and password are required" });
+  if (USERS.find(u => u.username === username)) return res.json({ success: false, message: "Username already exists" });
+  USERS.push({ username, password });
   res.json({ success: true });
 });
 
