@@ -46,6 +46,33 @@ async function register() {
 }
 
 /* PRODUCTS */
+async function addProduct() {
+  const nameVal = document.getElementById("name").value.trim();
+  const priceVal = parseFloat(document.getElementById("price").value);
+
+  if (!nameVal) {
+    alert("Product name is required");
+    return;
+  }
+  if (isNaN(priceVal) || priceVal < 0) {
+    alert("Price must be a valid non-negative number");
+    return;
+  }
+
+  const res = await fetch(API + "/api/products", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ name: nameVal, price: priceVal })
+  });
+
+  const data = await res.json();
+  if (data.success) {
+    loadProducts();
+  } else {
+    alert(data.message || "Failed to add product");
+  }
+}
+
 async function loadProducts() {
   const res = await fetch(API + "/api/products");
   const data = await res.json();

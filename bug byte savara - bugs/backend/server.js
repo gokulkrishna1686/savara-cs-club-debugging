@@ -43,7 +43,10 @@ app.post("/api/admin/login", (req, res) => {
 app.get("/api/products", (req, res) => res.json(products));
 
 app.post("/api/products", (req, res) => {
-  products.push({ id: Date.now(), ...req.body }); // BUG
+  const { name, price } = req.body;
+  if (!name || typeof name !== "string" || !name.trim()) return res.json({ success: false, message: "Product name is required" });
+  if (price === undefined || typeof price !== "number" || price < 0) return res.json({ success: false, message: "Price must be a valid non-negative number" });
+  products.push({ id: Date.now(), name: name.trim(), price });
   res.json({ success: true });
 });
 
