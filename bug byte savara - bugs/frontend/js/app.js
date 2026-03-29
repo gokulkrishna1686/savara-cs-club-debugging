@@ -117,8 +117,14 @@ async function placeOrder() {
 }
 
 /* ADMIN */
-function checkAdmin() {
-  if (!localStorage.getItem("admin")) window.location.href = "login.html";
+async function checkAdmin() {
+  const token = localStorage.getItem("adminToken");
+  if (!token) { window.location.href = "login.html"; return; }
+  const res = await fetch(API + "/api/admin/verify", {
+    headers: { "x-admin-token": token }
+  });
+  const data = await res.json();
+  if (!data.success) window.location.href = "login.html";
 }
 
 async function adminLogin() {
@@ -134,7 +140,7 @@ async function adminLogin() {
   const data = await res.json();
 
   if (data.success) {
-    localStorage.setItem("admin", "true");
+    localStorage.setItem("adminToken", data.token);
     window.location.href = "dashboard.html";
   }
 }

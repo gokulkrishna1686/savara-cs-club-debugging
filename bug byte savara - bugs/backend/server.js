@@ -35,8 +35,19 @@ app.post("/api/user/login", (req, res) => {
 });
 
 /* ADMIN */
+let adminToken = null;
+
 app.post("/api/admin/login", (req, res) => {
-  res.json({ success: req.body.username === ADMIN.username && req.body.password === ADMIN.password });
+  if (req.body.username === ADMIN.username && req.body.password === ADMIN.password) {
+    adminToken = Math.random().toString(36).slice(2);
+    res.json({ success: true, token: adminToken });
+  } else {
+    res.json({ success: false });
+  }
+});
+
+app.get("/api/admin/verify", (req, res) => {
+  res.json({ success: adminToken !== null && req.headers["x-admin-token"] === adminToken });
 });
 
 /* PRODUCTS */
