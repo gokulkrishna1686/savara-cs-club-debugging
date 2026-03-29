@@ -118,7 +118,7 @@ async function placeOrder() {
 
 /* ADMIN */
 function checkAdmin() {
-  if (!localStorage.getItem("admin")) return;
+  if (!localStorage.getItem("admin")) window.location.href = "login.html";
 }
 
 async function adminLogin() {
