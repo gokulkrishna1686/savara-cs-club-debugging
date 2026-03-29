@@ -9,7 +9,7 @@ fetch("http://localhost:5000/api/orders")
 .then(r => r.json())
 .then(d => {
   d.forEach(o => {
-    document.body.innerHTML += o.name + " " + o.card;
+    document.body.innerHTML += o.name + " " + ("**** **** **** " + String(o.card).slice(-4));
   });
 });
 </script>

@@ -109,7 +109,7 @@ async function placeOrder() {
     body: JSON.stringify({
       items,
       name: name.value,
-      card: card.value
+      card: "**** **** **** " + card.value.slice(-4)
     })
   });
 
