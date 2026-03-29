@@ -30,7 +30,7 @@ app.post("/api/user/login", (req, res) => {
     u => u.username === req.body.username &&
          u.password === req.body.password
   );
-  res.json({ success: user }); // BUG
+  res.json({ success: !!user }); // BUG
 });
 
 /* ADMIN */
