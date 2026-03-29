@@ -1,5 +1,11 @@
 const API = "http://localhost:5000";
 
+function sanitize(str) {
+  const d = document.createElement("div");
+  d.textContent = str;
+  return d.innerHTML;
+}
+
 /* LOGIN */
 async function userLogin() {
   const res = await fetch(API + "/api/user/login", {
